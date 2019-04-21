@@ -1,4 +1,4 @@
-from app import db
+from run import db
 class book(db.Model):
 	"""书籍信息表"""
 	__tablename__='books'
