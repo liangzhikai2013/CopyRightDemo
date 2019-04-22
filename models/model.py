@@ -1,4 +1,4 @@
-from run import db
+from app import db
 class book(db.Model):
 	"""书籍信息表"""
 	__tablename__='books'
@@ -19,6 +19,20 @@ class book(db.Model):
 		self.title=title
 		self.url=url
 		self.category_id=category_id
+		self.listjson=[]
+	def convert_json(self):
+		return dict(id=self.id,bookid=self.bookid,play=self.play,title=self.title,url=self.url,category_id=self.category_id)
+	@property
+	def listjson(self):
+		return self._listjson
+	@listjson.setter
+	def listjson(self,value):
+		if not isinstance(value,tuple):
+			raise ValueError('必须是list')
+		self._listjson=value
+	def convert_listjson(self):
+		return [item.convert_json() for item in self.listjson]
+	
 
 class chapters(db.Model):
 	"""章节信息表"""
@@ -52,5 +66,19 @@ class chapters(db.Model):
 		self.albumId=albumId
 		self.result_one=result_one
 		self.result_two=result_two
+		self.listjson=[]
+	def convert_json(self):
+		return dict(id=self.id,trackId=self.trackId,albumId=self.albumId,title=self.title,playCount=self.playCount,duration=self.duration,url=self.url,path=self.path,result_one=self.result_one,result_two=self.result_two)
+	@property
+	def listjson(self):
+		return self._listjson
+	@listjson.setter
+	def listjson(self,value):
+		if not isinstance(value,tuple):
+			raise ValueError('必须是list')
+		self._listjson=value
+	def convert_listjson(self):
+		return [item.convert_json() for item in self.listjson]
+	
 
 # db.create_all()
