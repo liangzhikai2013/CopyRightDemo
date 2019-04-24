@@ -26,5 +26,19 @@ class ResultData(Result):
 		self.PageIndex=PageIndex
 		self.PageSize=PageSize
 		self.TotoalCount=TotoalCount
+	@property
+	def token(self):
+		if self._token:
+			return self._token
+		else:
+			return None
+	@token.setter
+	def token(self,value):
+		if value:
+			self._token=value
+		else:
+			self._token=None
+	def convert_json(self):
+		return dict(code=self.code,data=self.data,msg=self.msg,PageIndex=self.PageIndex,PageSize=self.PageSize,TotoalCount=self.TotoalCount,token=self.token)
 
 		
